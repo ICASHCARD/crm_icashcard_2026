@@ -38,10 +38,10 @@ const Login: React.FC = () => {
         <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-500/10 blur-[120px] rounded-full animate-pulse delay-1000" />
       </div>
 
-      <div className="w-full max-w-[1200px] max-h-[calc(100vh-1rem)] md:max-h-[calc(100vh-2rem)] grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-slate-900 rounded-[24px] md:rounded-[36px] lg:rounded-[48px] shadow-[0_32px_64px_-12px_rgba(0,0,0,0.14)] overflow-hidden border border-slate-200/50 dark:border-slate-800/50 relative z-10 animate-in fade-in zoom-in-95 duration-1000">
+      <div className="w-full max-w-[1200px] max-h-[calc(100vh-0.5rem)] md:max-h-[calc(100vh-1rem)] grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-slate-900 rounded-[24px] md:rounded-[36px] lg:rounded-[48px] shadow-[0_32px_64px_-12px_rgba(0,0,0,0.14)] overflow-hidden border border-slate-200/50 dark:border-slate-800/50 relative z-10 animate-in fade-in zoom-in-95 duration-1000">
         
         {/* Lado Esquerdo: Branding e Impacto */}
-        <div className="hidden lg:flex flex-col justify-start h-full p-6 xl:p-10 bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 text-white relative overflow-hidden gap-6">
+        <div className="hidden lg:flex flex-col justify-start min-h-0 h-full p-5 xl:p-8 bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 text-white relative overflow-hidden gap-4">
           <div className="absolute inset-0 opacity-20 pointer-events-none">
             <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
                <defs>
@@ -62,12 +62,12 @@ const Login: React.FC = () => {
             </div>
             
             <div className="space-y-5 md:space-y-6 lg:space-y-5">
-              <h1 className="text-4xl xl:text-5xl font-black leading-[1.1] tracking-tighter">
+              <h1 className="text-4xl xl:text-4xl 2xl:text-5xl font-black leading-[1.1] tracking-tighter">
                 O futuro da <br />
                 <span className="text-blue-200">gestão ERP</span> <br />
                 começa aqui.
               </h1>
-              <p className="text-blue-100 text-base xl:text-xl max-w-md leading-relaxed font-medium">
+              <p className="text-blue-100 text-base xl:text-lg max-w-md leading-relaxed font-medium">
                 Sincronize suas unidades, controle finanças e tome decisões baseadas em dados com IA.
               </p>
             </div>
@@ -91,8 +91,8 @@ const Login: React.FC = () => {
         </div>
 
         {/* Lado Direito: Formulário */}
-        <div className="p-6 md:p-10 xl:p-14 flex flex-col justify-center bg-white dark:bg-slate-900 overflow-y-auto">
-          <div className="mb-6 md:mb-8 text-center lg:text-left">
+        <div className="p-4 md:p-8 xl:p-10 min-h-0 flex flex-col justify-center bg-white dark:bg-slate-900 overflow-y-auto">
+          <div className="mb-4 md:mb-6 text-center lg:text-left">
             <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-2 md:mb-3 tracking-tight">Login.</h2>
             <p className="text-slate-500 dark:text-slate-400 font-medium">Insira os dados da sua conta corporativa.</p>
           </div>
@@ -174,7 +174,7 @@ const Login: React.FC = () => {
           </form>
 
           {/* Demo Access Area - For Mockup only */}
-          <div className="mt-8 md:mt-12 p-4 md:p-6 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-[24px] md:rounded-[32px] animate-in fade-in slide-in-from-bottom-2 duration-700 delay-300">
+          <div className="mt-6 md:mt-8 p-3 md:p-4 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-[24px] md:rounded-[32px] animate-in fade-in slide-in-from-bottom-2 duration-700 delay-300">
              <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white shadow-sm">
                    <UserCheck size={18} />
@@ -199,7 +199,7 @@ const Login: React.FC = () => {
              </button>
           </div>
 
-          <div className="mt-10 text-center">
+          <div className="mt-6 text-center">
             <p className="text-[11px] font-bold text-slate-400 dark:text-slate-600 uppercase tracking-widest">
               Segurança certificada SSL/TLS • {new Date().getFullYear()} <br />
               <span className="opacity-60">{settings.companyName}</span>
