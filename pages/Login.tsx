@@ -38,10 +38,10 @@ const Login: React.FC = () => {
         <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-500/10 blur-[120px] rounded-full animate-pulse delay-1000" />
       </div>
 
-      <div className="w-full max-w-[1200px] max-h-[calc(100vh-0.5rem)] md:max-h-[calc(100vh-1rem)] grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-slate-900 rounded-[24px] md:rounded-[36px] lg:rounded-[48px] shadow-[0_32px_64px_-12px_rgba(0,0,0,0.14)] overflow-hidden border border-slate-200/50 dark:border-slate-800/50 relative z-10 animate-in fade-in zoom-in-95 duration-1000">
+      <div className="w-full max-w-[1040px] max-h-[calc(100vh-0.5rem)] md:max-h-[calc(100vh-1rem)] grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-slate-900 rounded-[24px] md:rounded-[36px] lg:rounded-[48px] shadow-[0_32px_64px_-12px_rgba(0,0,0,0.14)] overflow-hidden border border-slate-200/50 dark:border-slate-800/50 relative z-10 animate-in fade-in zoom-in-95 duration-1000">
         
         {/* Lado Esquerdo: Branding e Impacto */}
-        <div className="hidden lg:flex flex-col justify-start min-h-0 h-full p-5 xl:p-8 bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 text-white relative overflow-hidden gap-4">
+        <div className="hidden lg:flex flex-col justify-start min-h-0 h-full p-4 xl:p-6 bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 text-white relative overflow-hidden gap-3">
           <div className="absolute inset-0 opacity-20 pointer-events-none">
             <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
                <defs>
@@ -54,51 +54,51 @@ const Login: React.FC = () => {
           </div>
           
           <div className="relative z-10">
-            <div className="flex items-center gap-4 mb-16">
-               <div className="w-14 h-14 bg-white/10 backdrop-blur-xl rounded-2xl flex items-center justify-center shadow-2xl border border-white/20">
+            <div className="flex items-center gap-3 mb-8">
+               <div className="w-10 h-10 bg-white/10 backdrop-blur-xl rounded-2xl flex items-center justify-center shadow-2xl border border-white/20">
                   <ShieldCheck size={32} className="text-white" />
                </div>
-               <span className="text-3xl font-black tracking-tighter uppercase">{settings.systemName}</span>
+               <span className="text-2xl font-black tracking-tighter uppercase">{settings.systemName}</span>
             </div>
             
-            <div className="space-y-5 md:space-y-6 lg:space-y-5">
-              <h1 className="text-4xl xl:text-4xl 2xl:text-5xl font-black leading-[1.1] tracking-tighter">
+            <div className="space-y-3 md:space-y-4 lg:space-y-3">
+              <h1 className="text-3xl xl:text-3xl 2xl:text-4xl font-black leading-[1.1] tracking-tighter">
                 O futuro da <br />
                 <span className="text-blue-200">gestão ERP</span> <br />
                 começa aqui.
               </h1>
-              <p className="text-blue-100 text-base xl:text-lg max-w-md leading-relaxed font-medium">
+              <p className="text-blue-100 text-sm xl:text-base max-w-md leading-relaxed font-medium">
                 Sincronize suas unidades, controle finanças e tome decisões baseadas em dados com IA.
               </p>
             </div>
           </div>
 
           <div className="relative z-10 space-y-3 pb-1 xl:pb-2 mt-auto">
-            <div className="flex items-center gap-4 bg-white/5 backdrop-blur-md p-4 xl:p-5 rounded-[24px] xl:rounded-[28px] border border-white/10">
+            <div className="flex items-center gap-3 bg-white/5 backdrop-blur-md p-3 xl:p-4 rounded-[24px] xl:rounded-[28px] border border-white/10">
               <div className="flex -space-x-4">
                 {[1,2,3,4].map(i => (
-                  <div key={i} className="w-12 h-12 rounded-full border-4 border-blue-600 overflow-hidden shadow-lg">
+                  <div key={i} className="w-10 h-10 rounded-full border-4 border-blue-600 overflow-hidden shadow-lg">
                     <img src={`https://picsum.photos/seed/user${i}/48/48`} alt="User" />
                   </div>
                 ))}
               </div>
               <div>
                 <p className="text-sm font-bold text-white leading-tight">Média de satisfação 4.9/5</p>
-                <p className="text-[11px] font-medium text-blue-200 uppercase tracking-widest mt-0.5">Baseado em +10k feedbacks</p>
+                <p className="text-[10px] font-medium text-blue-200 uppercase tracking-widest mt-0.5">Baseado em +10k feedbacks</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Lado Direito: Formulário */}
-        <div className="p-4 md:p-8 xl:p-10 min-h-0 flex flex-col justify-center bg-white dark:bg-slate-900 overflow-y-auto">
-          <div className="mb-4 md:mb-6 text-center lg:text-left">
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-2 md:mb-3 tracking-tight">Login.</h2>
+        <div className="p-3 md:p-6 xl:p-7 min-h-0 flex flex-col justify-center bg-white dark:bg-slate-900 overflow-y-auto">
+          <div className="mb-3 md:mb-4 text-center lg:text-left">
+            <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-2 md:mb-3 tracking-tight">Login.</h2>
             <p className="text-slate-500 dark:text-slate-400 font-medium">Insira os dados da sua conta corporativa.</p>
           </div>
 
           {error && (
-            <div className="mb-8 p-5 bg-rose-50 dark:bg-rose-900/20 border border-rose-100 dark:border-rose-800 rounded-[24px] flex items-center gap-4 text-rose-600 dark:text-rose-400 text-sm animate-in slide-in-from-top-4 duration-500">
+            <div className="mb-8 p-5 bg-rose-50 dark:bg-rose-900/20 border border-rose-100 dark:border-rose-800 rounded-[24px] flex items-center gap-3 text-rose-600 dark:text-rose-400 text-sm animate-in slide-in-from-top-4 duration-500">
               <div className="w-10 h-10 bg-rose-100 dark:bg-rose-900/40 rounded-xl flex items-center justify-center shrink-0">
                 <AlertCircle size={24} />
               </div>
@@ -106,18 +106,18 @@ const Login: React.FC = () => {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6 lg:space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4 lg:space-y-3">
             <div className="space-y-2">
               <label className="text-[12px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest px-2">E-mail Institucional</label>
               <div className="relative group">
-                <Mail className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600 group-focus-within:text-blue-500 transition-colors" size={20} />
+                <Mail className="absolute left-3 lg:left-4 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600 group-focus-within:text-blue-500 transition-colors" size={20} />
                 <input 
                   required
                   type="email"
                   autoFocus
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm lg:text-base rounded-[18px] lg:rounded-[20px] pl-12 lg:pl-14 pr-4 lg:pr-5 py-3.5 lg:py-4 focus:ring-4 ring-blue-500/10 outline-none transition-all text-slate-900 dark:text-white font-medium"
+                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm lg:text-base rounded-[14px] lg:rounded-[16px] pl-10 lg:pl-11 pr-3 lg:pr-4 py-2.5 lg:py-3 focus:ring-4 ring-blue-500/10 outline-none transition-all text-slate-900 dark:text-white font-medium"
                   placeholder="seu@email.com"
                 />
               </div>
@@ -126,22 +126,22 @@ const Login: React.FC = () => {
             <div className="space-y-2">
               <div className="flex items-center justify-between px-2">
                 <label className="text-[12px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Senha de Segurança</label>
-                <button type="button" className="text-[11px] font-black text-blue-600 dark:text-blue-400 hover:underline">Recuperar</button>
+                <button type="button" className="text-[10px] font-black text-blue-600 dark:text-blue-400 hover:underline">Recuperar</button>
               </div>
               <div className="relative group">
-                <Lock className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600 group-focus-within:text-blue-500 transition-colors" size={20} />
+                <Lock className="absolute left-3 lg:left-4 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600 group-focus-within:text-blue-500 transition-colors" size={20} />
                 <input 
                   required
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={e => setPassword(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm lg:text-base rounded-[18px] lg:rounded-[20px] pl-12 lg:pl-14 pr-12 lg:pr-12 py-3.5 lg:py-4 focus:ring-4 ring-blue-500/10 outline-none transition-all text-slate-900 dark:text-white font-medium"
+                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm lg:text-base rounded-[14px] lg:rounded-[16px] pl-10 lg:pl-11 pr-10 lg:pr-10 py-2.5 lg:py-3 focus:ring-4 ring-blue-500/10 outline-none transition-all text-slate-900 dark:text-white font-medium"
                   placeholder="••••••••••••"
                 />
                 <button 
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 lg:right-5 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-500 transition-colors"
+                  className="absolute right-3 lg:right-4 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-500 transition-colors"
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
@@ -160,7 +160,7 @@ const Login: React.FC = () => {
             <button 
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 lg:py-4 bg-blue-600 text-white rounded-[18px] lg:rounded-[20px] font-black text-sm lg:text-base hover:bg-blue-700 active:scale-[0.98] transition-all shadow-2xl shadow-blue-100 dark:shadow-none flex items-center justify-center gap-2 lg:gap-3 group disabled:opacity-70 disabled:active:scale-100"
+              className="w-full py-2.5 lg:py-3 bg-blue-600 text-white rounded-[14px] lg:rounded-[16px] font-black text-sm lg:text-base hover:bg-blue-700 active:scale-[0.98] transition-all shadow-2xl shadow-blue-100 dark:shadow-none flex items-center justify-center gap-2 lg:gap-3 group disabled:opacity-70 disabled:active:scale-100"
             >
               {loading ? (
                 <Loader2 className="animate-spin" size={24} />
@@ -174,7 +174,7 @@ const Login: React.FC = () => {
           </form>
 
           {/* Demo Access Area - For Mockup only */}
-          <div className="mt-6 md:mt-8 p-3 md:p-4 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-[24px] md:rounded-[32px] animate-in fade-in slide-in-from-bottom-2 duration-700 delay-300">
+          <div className="mt-4 md:mt-5 p-2.5 md:p-3 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-[24px] md:rounded-[32px] animate-in fade-in slide-in-from-bottom-2 duration-700 delay-300">
              <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white shadow-sm">
                    <UserCheck size={18} />
@@ -199,8 +199,8 @@ const Login: React.FC = () => {
              </button>
           </div>
 
-          <div className="mt-6 text-center">
-            <p className="text-[11px] font-bold text-slate-400 dark:text-slate-600 uppercase tracking-widest">
+          <div className="mt-4 text-center">
+            <p className="text-[10px] font-bold text-slate-400 dark:text-slate-600 uppercase tracking-widest">
               Segurança certificada SSL/TLS • {new Date().getFullYear()} <br />
               <span className="opacity-60">{settings.companyName}</span>
             </p>
