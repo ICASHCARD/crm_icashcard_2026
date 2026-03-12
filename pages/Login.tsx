@@ -41,7 +41,7 @@ const Login: React.FC = () => {
       <div className="w-full max-w-[1200px] max-h-[calc(100vh-1rem)] md:max-h-[calc(100vh-2rem)] grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-slate-900 rounded-[24px] md:rounded-[36px] lg:rounded-[48px] shadow-[0_32px_64px_-12px_rgba(0,0,0,0.14)] overflow-hidden border border-slate-200/50 dark:border-slate-800/50 relative z-10 animate-in fade-in zoom-in-95 duration-1000">
         
         {/* Lado Esquerdo: Branding e Impacto */}
-        <div className="hidden lg:flex flex-col justify-between p-10 xl:p-16 bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 text-white relative">
+        <div className="hidden lg:flex flex-col justify-between min-h-0 p-8 xl:p-12 bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 text-white relative overflow-y-auto">
           <div className="absolute inset-0 opacity-20 pointer-events-none">
             <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
                <defs>
@@ -73,8 +73,8 @@ const Login: React.FC = () => {
             </div>
           </div>
 
-          <div className="relative z-10 space-y-6">
-            <div className="flex items-center gap-4 bg-white/5 backdrop-blur-md p-6 rounded-[32px] border border-white/10">
+          <div className="relative z-10 space-y-4 pb-2 xl:pb-4">
+            <div className="flex items-center gap-4 bg-white/5 backdrop-blur-md p-4 xl:p-5 rounded-[24px] xl:rounded-[28px] border border-white/10">
               <div className="flex -space-x-4">
                 {[1,2,3,4].map(i => (
                   <div key={i} className="w-12 h-12 rounded-full border-4 border-blue-600 overflow-hidden shadow-lg">
