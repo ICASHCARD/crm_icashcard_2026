@@ -61,7 +61,7 @@ const Login: React.FC = () => {
                <span className="text-3xl font-black tracking-tighter uppercase">{settings.systemName}</span>
             </div>
             
-            <div className="space-y-6 md:space-y-8">
+            <div className="space-y-5 md:space-y-6 lg:space-y-5">
               <h1 className="text-4xl xl:text-6xl font-black leading-[1.1] tracking-tighter">
                 O futuro da <br />
                 <span className="text-blue-200">gestão ERP</span> <br />
@@ -106,18 +106,18 @@ const Login: React.FC = () => {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6 lg:space-y-5">
             <div className="space-y-2">
               <label className="text-[12px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest px-2">E-mail Institucional</label>
               <div className="relative group">
-                <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600 group-focus-within:text-blue-500 transition-colors" size={22} />
+                <Mail className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600 group-focus-within:text-blue-500 transition-colors" size={20} />
                 <input 
                   required
                   type="email"
                   autoFocus
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-base rounded-[24px] pl-16 pr-6 py-5 focus:ring-4 ring-blue-500/10 outline-none transition-all text-slate-900 dark:text-white font-medium"
+                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm lg:text-base rounded-[18px] lg:rounded-[20px] pl-12 lg:pl-14 pr-4 lg:pr-5 py-3.5 lg:py-4 focus:ring-4 ring-blue-500/10 outline-none transition-all text-slate-900 dark:text-white font-medium"
                   placeholder="seu@email.com"
                 />
               </div>
@@ -129,19 +129,19 @@ const Login: React.FC = () => {
                 <button type="button" className="text-[11px] font-black text-blue-600 dark:text-blue-400 hover:underline">Recuperar</button>
               </div>
               <div className="relative group">
-                <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600 group-focus-within:text-blue-500 transition-colors" size={22} />
+                <Lock className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600 group-focus-within:text-blue-500 transition-colors" size={20} />
                 <input 
                   required
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={e => setPassword(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-base rounded-[24px] pl-16 pr-14 py-5 focus:ring-4 ring-blue-500/10 outline-none transition-all text-slate-900 dark:text-white font-medium"
+                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm lg:text-base rounded-[18px] lg:rounded-[20px] pl-12 lg:pl-14 pr-12 lg:pr-12 py-3.5 lg:py-4 focus:ring-4 ring-blue-500/10 outline-none transition-all text-slate-900 dark:text-white font-medium"
                   placeholder="••••••••••••"
                 />
                 <button 
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-500 transition-colors"
+                  className="absolute right-4 lg:right-5 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-500 transition-colors"
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
@@ -160,7 +160,7 @@ const Login: React.FC = () => {
             <button 
               type="submit"
               disabled={loading}
-              className="w-full py-5 bg-blue-600 text-white rounded-[24px] font-black text-base hover:bg-blue-700 active:scale-[0.98] transition-all shadow-2xl shadow-blue-100 dark:shadow-none flex items-center justify-center gap-3 group disabled:opacity-70 disabled:active:scale-100"
+              className="w-full py-3.5 lg:py-4 bg-blue-600 text-white rounded-[18px] lg:rounded-[20px] font-black text-sm lg:text-base hover:bg-blue-700 active:scale-[0.98] transition-all shadow-2xl shadow-blue-100 dark:shadow-none flex items-center justify-center gap-2 lg:gap-3 group disabled:opacity-70 disabled:active:scale-100"
             >
               {loading ? (
                 <Loader2 className="animate-spin" size={24} />
