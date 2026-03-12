@@ -41,7 +41,7 @@ const Login: React.FC = () => {
       <div className="w-full max-w-[1200px] max-h-[calc(100vh-1rem)] md:max-h-[calc(100vh-2rem)] grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-slate-900 rounded-[24px] md:rounded-[36px] lg:rounded-[48px] shadow-[0_32px_64px_-12px_rgba(0,0,0,0.14)] overflow-hidden border border-slate-200/50 dark:border-slate-800/50 relative z-10 animate-in fade-in zoom-in-95 duration-1000">
         
         {/* Lado Esquerdo: Branding e Impacto */}
-        <div className="hidden lg:flex flex-col justify-between min-h-0 p-8 xl:p-12 bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 text-white relative overflow-y-auto">
+        <div className="hidden lg:flex flex-col justify-start h-full p-6 xl:p-10 bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 text-white relative overflow-hidden gap-6">
           <div className="absolute inset-0 opacity-20 pointer-events-none">
             <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
                <defs>
@@ -62,7 +62,7 @@ const Login: React.FC = () => {
             </div>
             
             <div className="space-y-5 md:space-y-6 lg:space-y-5">
-              <h1 className="text-4xl xl:text-6xl font-black leading-[1.1] tracking-tighter">
+              <h1 className="text-4xl xl:text-5xl font-black leading-[1.1] tracking-tighter">
                 O futuro da <br />
                 <span className="text-blue-200">gestão ERP</span> <br />
                 começa aqui.
@@ -73,7 +73,7 @@ const Login: React.FC = () => {
             </div>
           </div>
 
-          <div className="relative z-10 space-y-4 pb-2 xl:pb-4">
+          <div className="relative z-10 space-y-3 pb-1 xl:pb-2 mt-auto">
             <div className="flex items-center gap-4 bg-white/5 backdrop-blur-md p-4 xl:p-5 rounded-[24px] xl:rounded-[28px] border border-white/10">
               <div className="flex -space-x-4">
                 {[1,2,3,4].map(i => (
