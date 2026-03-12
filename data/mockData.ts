@@ -108,7 +108,7 @@ export const mockProfiles: Profile[] = [
 ];
 
 export const mockSystemSettings: SystemSettings = {
-  systemName: 'Nexus ERP',
+  systemName: 'ICASHCARD CRM',
   companyName: 'Nexus Soluções Digitais',
   logoUrl: '',
   faviconUrl: '',

@@ -1,6 +1,5 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { mockProposals } from '../data/mockData';
 import { 
   Search, 
   FileSearch, 
@@ -29,6 +28,7 @@ import {
   ArrowUpCircle
 } from 'lucide-react';
 import { Proposal, ProposalStatus, DocStatus, ProposalDocument, ContractStatus } from '../types';
+import { proposalsApi } from '../services/api/proposalsApi';
 
 interface Toast {
   id: number;
@@ -55,7 +55,7 @@ const StatusTag: React.FC<{ status: ProposalStatus; onClick: () => void }> = ({ 
   return (
     <button 
       onClick={onClick}
-      className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase border transition-all active:scale-95 ${currentStyle}`}
+      className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium border transition-all active:scale-95 ${currentStyle}`}
     >
       {status}
       <ChevronDown size={12} />
@@ -64,12 +64,12 @@ const StatusTag: React.FC<{ status: ProposalStatus; onClick: () => void }> = ({ 
 };
 
 const ProposalsTracking: React.FC = () => {
-  const [proposals, setProposals] = useState<Proposal[]>(() => {
-    const saved = localStorage.getItem('nexus_proposals_db');
-    return saved ? JSON.parse(saved) : mockProposals;
-  });
+  const [proposals, setProposals] = useState<Proposal[]>([]);
+  const [loadingData, setLoadingData] = useState(true);
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [recordsPerPage, setRecordsPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedProposal, setSelectedProposal] = useState<Proposal | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [isDocsOpen, setIsDocsOpen] = useState(false);
@@ -81,10 +81,6 @@ const ProposalsTracking: React.FC = () => {
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [editForm, setEditForm] = useState<Proposal | null>(null);
 
-  useEffect(() => {
-    localStorage.setItem('nexus_proposals_db', JSON.stringify(proposals));
-  }, [proposals]);
-
   const addToast = (message: string, type: Toast['type'] = 'success') => {
     const id = Date.now();
     setToasts(prev => [...prev, { id, message, type }]);
@@ -92,6 +88,22 @@ const ProposalsTracking: React.FC = () => {
       setToasts(prev => prev.filter(t => t.id !== id));
     }, 4000);
   };
+
+  useEffect(() => {
+    const loadProposals = async () => {
+      try {
+        setLoadingData(true);
+        const rows = await proposalsApi.list();
+        setProposals(rows);
+      } catch (error) {
+        addToast('Erro ao carregar propostas reais do Supabase.', 'error');
+      } finally {
+        setLoadingData(false);
+      }
+    };
+
+    loadProposals();
+  }, []);
 
   const filtered = useMemo(() => {
     return proposals.filter(p => 
@@ -101,6 +113,19 @@ const ProposalsTracking: React.FC = () => {
       p.nsu.includes(searchTerm)
     );
   }, [searchTerm, proposals]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / recordsPerPage));
+  const paginated = useMemo(() => {
+    const start = (currentPage - 1) * recordsPerPage;
+    return filtered.slice(start, start + recordsPerPage);
+  }, [filtered, currentPage, recordsPerPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, recordsPerPage]);
+
+  const fromItem = filtered.length === 0 ? 0 : (currentPage - 1) * recordsPerPage + 1;
+  const toItem = Math.min(currentPage * recordsPerPage, filtered.length);
 
   const openDetails = (p: Proposal) => {
     setSelectedProposal(p);
@@ -133,14 +158,6 @@ const ProposalsTracking: React.FC = () => {
     addToast("Comprovante removido.", "warning");
   };
 
-  const getContractStatusColor = (status?: ContractStatus) => {
-    switch (status) {
-      case 'Assinado': return 'text-emerald-500';
-      case 'Aguardando Assinatura': return 'text-amber-500';
-      default: return 'text-slate-300';
-    }
-  };
-
   const handleOpenContract = (p: Proposal) => {
     window.open('https://assina.ae', '_blank');
     if (!p.contractStatus || p.contractStatus === 'Não Gerado') {
@@ -161,6 +178,16 @@ const ProposalsTracking: React.FC = () => {
     return new Date(dateStr).toLocaleDateString('pt-BR');
   };
 
+  const toProperName = (value?: string) => {
+    if (!value) return '-';
+    return value
+      .toLowerCase()
+      .split(' ')
+      .filter(Boolean)
+      .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ');
+  };
+
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       {/* Camada de Toasts */}
@@ -176,55 +203,108 @@ const ProposalsTracking: React.FC = () => {
         ))}
       </div>
 
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter uppercase">Rastreio de Propostas</h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">Controle de formalização e pagamentos.</p>
-        </div>
-      </div>
+      <div className="bg-white dark:bg-slate-900 rounded-[7px] border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+        <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+              <select
+                value={recordsPerPage}
+                onChange={(e) => setRecordsPerPage(Number(e.target.value))}
+                className="h-8 px-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-[7px] text-sm"
+              >
+                {[10, 25, 50, 100].map((size) => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+              <span>registros por página</span>
+            </div>
 
-      <div className="bg-white dark:bg-slate-900 rounded-[32px] border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-        <div className="p-6 border-b border-slate-100 dark:border-slate-800">
-          <div className="relative max-w-md">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Pesquisar..." className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm rounded-2xl pl-12 pr-4 py-3 outline-none focus:ring-2 ring-blue-500 transition-all dark:text-white" />
+            <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+              <span>Buscar:</span>
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="h-8 w-[220px] px-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-[7px] text-sm outline-none focus:ring-1 ring-slate-400"
+              />
+            </div>
           </div>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left whitespace-nowrap">
+          {loadingData && (
+            <div className="px-6 py-4 text-sm font-semibold text-slate-500">Carregando propostas reais...</div>
+          )}
+          <table className="w-full text-left whitespace-nowrap text-sm text-slate-700 dark:text-slate-200 font-normal border-collapse">
             <thead>
-              <tr className="bg-slate-50/50 dark:bg-slate-800/50 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 border-b border-slate-100 dark:border-slate-800">
-                <th className="px-6 py-5">COD</th>
-                <th className="px-6 py-5">CRIAÇÃO</th>
-                <th className="px-6 py-5">CLIENTE</th>
-                <th className="px-6 py-5">STATUS</th>
-                <th className="px-6 py-5 text-right">AÇÕES</th>
+              <tr className="bg-slate-100/70 dark:bg-slate-800/60 text-sm font-medium text-slate-700 dark:text-slate-200 border-b border-slate-300 dark:border-slate-700">
+                <th className="px-3 py-2.5 border border-slate-300 dark:border-slate-700">COD</th>
+                <th className="px-3 py-2.5 border border-slate-300 dark:border-slate-700">CRIAÇÃO</th>
+                <th className="px-3 py-2.5 border border-slate-300 dark:border-slate-700">CLIENTE</th>
+                <th className="px-3 py-2.5 border border-slate-300 dark:border-slate-700">STATUS</th>
+                <th className="px-3 py-2.5 border border-slate-300 dark:border-slate-700 text-right">AÇÕES</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-              {filtered.map((p) => (
+            <tbody>
+              {!loadingData && filtered.length === 0 && (
+                <tr>
+                  <td colSpan={5} className="px-3 py-8 border border-slate-200 dark:border-slate-700 text-center text-sm text-slate-500">Nenhuma proposta encontrada.</td>
+                </tr>
+              )}
+              {paginated.map((p) => (
                 <tr key={p.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors">
-                  <td className="px-6 py-4 text-sm font-bold text-blue-600">#{p.code}</td>
-                  <td className="px-6 py-4 text-sm text-slate-500">{formatDate(p.createdAt)}</td>
-                  <td className="px-6 py-4"><p className="text-sm font-black text-slate-900 dark:text-white uppercase truncate max-w-[150px]">{p.clientName}</p></td>
-                  <td className="px-6 py-4"><StatusTag status={p.status} onClick={() => { setSelectedProposal(p); setNewStatusValue(p.status); setIsStatusModalOpen(true); }} /></td>
-                  <td className="px-6 py-4 text-right">
+                  <td className="px-3 py-2 border border-slate-200 dark:border-slate-700 text-sm font-normal">#{p.code}</td>
+                  <td className="px-3 py-2 border border-slate-200 dark:border-slate-700 text-sm font-normal">{formatDate(p.createdAt)}</td>
+                  <td className="px-3 py-2 border border-slate-200 dark:border-slate-700"><p className="text-sm font-normal truncate max-w-[260px]">{toProperName(p.clientName)}</p></td>
+                  <td className="px-3 py-2 border border-slate-200 dark:border-slate-700"><StatusTag status={p.status} onClick={() => { setSelectedProposal(p); setNewStatusValue(p.status); setIsStatusModalOpen(true); }} /></td>
+                  <td className="px-3 py-2 border border-slate-200 dark:border-slate-700 text-right">
                     <div className="flex items-center justify-end gap-1">
                       {/* Lupa - Detalhes/Editar */}
-                      <button onClick={() => openDetails(p)} className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all" title="Ver Detalhes"><Search size={18} /></button>
+                      <button onClick={() => openDetails(p)} className="p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-all" title="Ver Detalhes"><Search size={18} /></button>
                       {/* Upload Comprovante */}
-                      <button onClick={() => { setSelectedProposal(p); setIsUploadProofOpen(true); }} className={`p-2 rounded-xl transition-all ${p.paymentProofUrl ? 'text-emerald-500 bg-emerald-50/50' : 'text-slate-400 hover:bg-slate-100'}`} title="Upload Comprovante"><UploadCloud size={18} /></button>
+                      <button onClick={() => { setSelectedProposal(p); setIsUploadProofOpen(true); }} className="p-2 rounded-xl transition-all text-slate-500 hover:text-slate-700 hover:bg-slate-100" title="Upload Comprovante"><UploadCloud size={18} /></button>
                       {/* Download Comprovante */}
-                      {p.paymentProofUrl && <a href={p.paymentProofUrl} download className="p-2 text-blue-500 hover:bg-blue-50 rounded-xl" title="Download"><Download size={18} /></a>}
+                      {p.paymentProofUrl && <a href={p.paymentProofUrl} download className="p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-xl" title="Download"><Download size={18} /></a>}
                       {/* Contrato assina.ae */}
-                      <button onClick={() => handleOpenContract(p)} className={`p-2 rounded-xl transition-all hover:bg-slate-100 ${getContractStatusColor(p.contractStatus)}`} title="Contrato assina.ae"><FileSignature size={18} /></button>
+                      <button onClick={() => handleOpenContract(p)} className="p-2 rounded-xl transition-all text-slate-500 hover:text-slate-700 hover:bg-slate-100" title="Contrato assina.ae"><FileSignature size={18} /></button>
                     </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+
+        <div className="px-4 py-3 border-t border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-sm text-slate-600 dark:text-slate-300">
+          <div>Mostrando {fromItem} até {toItem} de {filtered.length} registros</div>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="px-3 py-1.5 border border-slate-300 dark:border-slate-700 rounded-[7px] disabled:opacity-50"
+            >
+              Previous
+            </button>
+            {Array.from({ length: totalPages }).slice(0, 7).map((_, idx) => {
+              const page = idx + 1;
+              return (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`px-3 py-1.5 border rounded-[7px] ${currentPage === page ? 'bg-blue-600 text-white border-blue-600' : 'border-slate-300 dark:border-slate-700'}`}
+                >
+                  {page}
+                </button>
+              );
+            })}
+            <button
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="px-3 py-1.5 border border-slate-300 dark:border-slate-700 rounded-[7px] disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
 

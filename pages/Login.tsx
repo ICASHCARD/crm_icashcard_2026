@@ -62,12 +62,12 @@ const Login: React.FC = () => {
             </div>
             
             <div className="space-y-2.5 md:space-y-3 lg:space-y-2.5">
-              <h1 className="text-2xl xl:text-2xl 2xl:text-3xl font-black leading-[1.1] tracking-tighter">
+              <h1 className="text-4xl xl:text-4xl 2xl:text-5xl font-black leading-[1.1] tracking-tighter">
                 O futuro da <br />
                 <span className="text-blue-200">gestão ERP</span> <br />
                 começa aqui.
               </h1>
-              <p className="text-blue-100 text-xs xl:text-sm max-w-md leading-relaxed font-medium">
+              <p className="text-blue-100 text-base xl:text-lg max-w-md leading-relaxed font-medium">
                 Sincronize suas unidades, controle finanças e tome decisões baseadas em dados com IA.
               </p>
             </div>
