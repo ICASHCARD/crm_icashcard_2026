@@ -31,17 +31,17 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className={`min-h-screen flex items-center justify-center p-4 transition-colors duration-500 overflow-hidden ${settings.darkModeEnabled ? 'bg-slate-950' : 'bg-slate-50'}`}>
+    <div className={`min-h-screen flex items-center justify-center p-2 md:p-4 transition-colors duration-500 overflow-hidden ${settings.darkModeEnabled ? 'bg-slate-950' : 'bg-slate-50'}`}>
       {/* Background Animated Blobs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-500/10 blur-[120px] rounded-full animate-pulse" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-500/10 blur-[120px] rounded-full animate-pulse delay-1000" />
       </div>
 
-      <div className="w-full max-w-[1200px] grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-slate-900 rounded-[48px] shadow-[0_32px_64px_-12px_rgba(0,0,0,0.14)] overflow-hidden border border-slate-200/50 dark:border-slate-800/50 relative z-10 animate-in fade-in zoom-in-95 duration-1000">
+      <div className="w-full max-w-[1200px] max-h-[calc(100vh-1rem)] md:max-h-[calc(100vh-2rem)] grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-slate-900 rounded-[24px] md:rounded-[36px] lg:rounded-[48px] shadow-[0_32px_64px_-12px_rgba(0,0,0,0.14)] overflow-hidden border border-slate-200/50 dark:border-slate-800/50 relative z-10 animate-in fade-in zoom-in-95 duration-1000">
         
         {/* Lado Esquerdo: Branding e Impacto */}
-        <div className="hidden lg:flex flex-col justify-between p-16 bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 text-white relative">
+        <div className="hidden lg:flex flex-col justify-between p-10 xl:p-16 bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 text-white relative">
           <div className="absolute inset-0 opacity-20 pointer-events-none">
             <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
                <defs>
@@ -61,13 +61,13 @@ const Login: React.FC = () => {
                <span className="text-3xl font-black tracking-tighter uppercase">{settings.systemName}</span>
             </div>
             
-            <div className="space-y-8">
-              <h1 className="text-6xl font-black leading-[1.1] tracking-tighter">
+            <div className="space-y-6 md:space-y-8">
+              <h1 className="text-4xl xl:text-6xl font-black leading-[1.1] tracking-tighter">
                 O futuro da <br />
                 <span className="text-blue-200">gestão ERP</span> <br />
                 começa aqui.
               </h1>
-              <p className="text-blue-100 text-xl max-w-md leading-relaxed font-medium">
+              <p className="text-blue-100 text-base xl:text-xl max-w-md leading-relaxed font-medium">
                 Sincronize suas unidades, controle finanças e tome decisões baseadas em dados com IA.
               </p>
             </div>
@@ -91,9 +91,9 @@ const Login: React.FC = () => {
         </div>
 
         {/* Lado Direito: Formulário */}
-        <div className="p-10 md:p-20 flex flex-col justify-center bg-white dark:bg-slate-900">
-          <div className="mb-10 text-center lg:text-left">
-            <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-3 tracking-tight">Login.</h2>
+        <div className="p-6 md:p-10 xl:p-14 flex flex-col justify-center bg-white dark:bg-slate-900 overflow-y-auto">
+          <div className="mb-6 md:mb-8 text-center lg:text-left">
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-2 md:mb-3 tracking-tight">Login.</h2>
             <p className="text-slate-500 dark:text-slate-400 font-medium">Insira os dados da sua conta corporativa.</p>
           </div>
 
@@ -106,7 +106,7 @@ const Login: React.FC = () => {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
             <div className="space-y-2">
               <label className="text-[12px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest px-2">E-mail Institucional</label>
               <div className="relative group">
@@ -174,7 +174,7 @@ const Login: React.FC = () => {
           </form>
 
           {/* Demo Access Area - For Mockup only */}
-          <div className="mt-12 p-6 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-[32px] animate-in fade-in slide-in-from-bottom-2 duration-700 delay-300">
+          <div className="mt-8 md:mt-12 p-4 md:p-6 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-[24px] md:rounded-[32px] animate-in fade-in slide-in-from-bottom-2 duration-700 delay-300">
              <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white shadow-sm">
                    <UserCheck size={18} />
